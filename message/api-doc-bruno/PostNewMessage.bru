@@ -1,0 +1,23 @@
+meta {
+  name: PostNewMessage
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/message
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "message":"test",
+    "receiverId": 51
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
