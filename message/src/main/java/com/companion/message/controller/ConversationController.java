@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.companion.message.dto.out.ConversationDTO;
 import com.companion.message.dto.out.MessageDTO;
 import com.companion.message.entity.ConversationEntity;
+import com.companion.message.mapper.ConversationMapper;
 import com.companion.message.mapper.MessageMapper;
 import com.companion.message.service.contract.ConversationService;
 import com.companion.message.service.contract.UserService;
@@ -23,6 +25,7 @@ public class ConversationController {
     private final ConversationService conversationService;
     private final UserService userService;
     private final MessageMapper messageMapper;
+    private final ConversationMapper conversationMapper;
 
     
     @GetMapping("/{conversationId}")
@@ -33,9 +36,10 @@ public class ConversationController {
     }
 
         @GetMapping
-    public ResponseEntity<Collection<Integer>> getAllUserRelatedDiscussions() {
+    public ResponseEntity<Collection<ConversationDTO>> getAllUserRelatedDiscussions() {
         Collection<ConversationEntity> discussions = this.conversationService.getAllUserRelatedDiscussions(userService.getConnectedUserId());
-        return ResponseEntity.ok(discussions.stream().map(ConversationEntity::getId).toList());
+        Collection<ConversationDTO> dtos = discussions.stream().map(conversationMapper::toDto).toList();
+        return ResponseEntity.ok(dtos);
     }
 
 }

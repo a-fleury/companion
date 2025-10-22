@@ -1,6 +1,7 @@
 package com.companion.message.entity;
 
 import java.util.Collection;
+import java.util.Comparator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,4 +28,15 @@ public class ConversationEntity {
     private String user2Id;
     @OneToMany(mappedBy = "conversation")
     private Collection<MessageEntity> messages;
+
+    public MessageEntity getLastMessage () {
+        return this.messages.stream()
+                .max(Comparator.comparing(MessageEntity::getSentAt))
+                .orElse(null);
+    }
+
+    public String getContactImageUrl() {
+        // Placeholder for actual implementation to retrieve contact image URL
+        return "https://www.google.com/imgres?q=christophe%20fiorio&imgurl=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F2162998673%2Fimage_400x400.jpg&imgrefurl=https%3A%2F%2Fx.com%2Fchfiorio&docid=cukNGWcduCWhyM&tbnid=jUBRdkAx81xuWM&vet=12ahUKEwiOyPfZtbeQAxVxRqQEHbvBG-cQM3oECBcQAA..i&w=400&h=400&hcb=2&ved=2ahUKEwiOyPfZtbeQAxVxRqQEHbvBG-cQM3oECBcQAA";
+    }
 }

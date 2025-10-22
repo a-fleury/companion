@@ -1,6 +1,7 @@
 package com.companion.message.dto.out;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,11 +12,15 @@ public class ConversationDTO {
  
     private Integer id;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private UserDTO user_1;
+    @JsonProperty("user_1")
+    private UserDTO user1;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private UserDTO user_2;
+    @JsonProperty("user_2")
+    private UserDTO user2;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private MessageDTO last_message;
+    @JsonProperty("last_message")
+    private MessageDTO lastMessage;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String contact_image_url;
+    @JsonProperty("contact_image_url")
+    private String contactImageUrl;
 }
