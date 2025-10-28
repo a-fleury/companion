@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: transactions
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: ${SERVER_PORT}
+
+stripe:
+  webhookSecret: ${STRIPE_WEBHOOK_SECRET}
+  apiKey: ${STRIPE_API_KEY}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
