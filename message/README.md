@@ -24,7 +24,7 @@ Lightweight microservice that handles messaging for the Companion application.
   - GET /{conversationId} -> conversation messages in [`ConversationController`](message/src/main/java/com/companion/message/controller/ConversationController.java)
   - PATCH /{conversationId}/unread-messages -> mark read in [`UnreadMessageController`](message/src/main/java/com/companion/message/controller/UnreadMessageController.java)
 - OpenAPI / Swagger UI paths configured in application properties:
-  - Swagger UI: configured path is `/swagger-mes-couilles` (see [application.yml](message/src/main/resources/application.yml))
+  - Swagger UI: configured path is `//swagger` (see [application.yml](message/src/main/resources/application.yml))
   - API docs: `/api-docs` (see [application.yml](message/src/main/resources/application.yml))
 - Example API requests are available in `api-doc-bruno/`:
   - [PostNewMessage.bru](message/api-doc-bruno/PostNewMessage.bru)
