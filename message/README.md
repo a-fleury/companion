@@ -26,10 +26,6 @@ Lightweight microservice that handles messaging for the Companion application.
 - OpenAPI / Swagger UI paths configured in application properties:
   - Swagger UI: configured path is `//swagger` (see [application.yml](message/src/main/resources/application.yml))
   - API docs: `/api-docs` (see [application.yml](message/src/main/resources/application.yml))
-- Example API requests are available in `api-doc-bruno/`:
-  - [PostNewMessage.bru](message/api-doc-bruno/PostNewMessage.bru)
-  - [Get conversation messages.bru](message/api-doc-bruno/Get conversation messages.bru)
-  - [GetCoversation.bru](message/api-doc-bruno/GetCoversation.bru)
 
 ## How to run
 Prerequisites: Java toolchain (configured for Java 21 in the Gradle build), Docker (optional for local DB).
@@ -55,7 +51,7 @@ Prerequisites: Java toolchain (configured for Java 21 in the Gradle build), Dock
      ```
 
 3. Open the Swagger UI:
-   - http://localhost:8080/swagger-mes-couilles
+   - http://localhost:8080/swagger
    - Raw OpenAPI JSON: http://localhost:8080/api-docs
 
 Alternative: build a jar and run:
@@ -103,8 +99,3 @@ Entity mappings are in:
 - Docker compose (database): [docker-compose.yaml](docker-compose.yaml)
 - Controllers: see files in [message/src/main/java/com/companion/message/controller/](message/src/main/java/com/companion/message/controller/)
 - Services, repositories, entities, mappers: see corresponding packages under [message/src/main/java/com/companion/message/](message/src/main/java/com/companion/message/)
-
-If you want, I can:
-- add example curl requests to the README,
-- add health/readiness endpoints,
-- or replace the fake UserService with a token-based implementation.
