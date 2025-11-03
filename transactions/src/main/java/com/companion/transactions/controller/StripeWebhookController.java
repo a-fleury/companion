@@ -51,9 +51,9 @@ public class StripeWebhookController {
         if (pi == null) return;
 
         UUID transactionId = UUID.fromString(pi.getMetadata().get("transactionId"));
-        UUID userId = UUID.fromString(pi.getMetadata().get("userId"));
+        Long userId = Long.parseLong(pi.getMetadata().get("userId"));
         int amountV = Integer.parseInt(pi.getMetadata().get("amountV"));
-        rTransactionService.updateRTransactionStatus(transactionId, RTransactionStatus.SUCCESS);
+        rTransactionService.updateStatus(transactionId, RTransactionStatus.SUCCESS);
         walletService.updateBalance(userId, amountV);
     }
 
@@ -63,7 +63,7 @@ public class StripeWebhookController {
         if (pi == null) return;
 
         UUID transactionId = UUID.fromString(pi.getMetadata().get("transactionId"));
-        rTransactionService.updateRTransactionStatus(transactionId, RTransactionStatus.FAILED);
+        rTransactionService.updateStatus(transactionId, RTransactionStatus.FAILED);
     }
 
     private void handleCanceled(Event event) {
@@ -72,6 +72,6 @@ public class StripeWebhookController {
         if (pi == null) return;
 
         UUID transactionId = UUID.fromString(pi.getMetadata().get("transactionId"));
-        rTransactionService.updateRTransactionStatus(transactionId, RTransactionStatus.CANCELED);
+        rTransactionService.updateStatus(transactionId, RTransactionStatus.CANCELED);
     }
 }

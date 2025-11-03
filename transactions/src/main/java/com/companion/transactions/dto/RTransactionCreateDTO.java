@@ -14,7 +14,7 @@ import java.util.UUID;
 public class RTransactionCreateDTO {
 
     @NotNull
-    private UUID userId;
+    private Long userId;
 
     @NotNull
     @PositiveOrZero

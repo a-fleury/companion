@@ -18,7 +18,7 @@ public class RTransaction {
     private UUID id;
 
     @NotNull
-    private UUID userId;
+    private Long userId;
 
     @NotNull
     @PositiveOrZero

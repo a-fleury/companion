@@ -4,20 +4,22 @@ import com.companion.transactions.model.VTransactionStatus;
 import com.companion.transactions.model.VTransactionType;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
 @Setter
+@Builder
 public class VTransactionCreateDTO {
 
     @NotNull
-    private UUID buyerId;
+    private Long buyerId;
 
     @NotNull
-    private UUID sellerId;
+    private Long sellerId;
+
+    @NotNull Long meetingId;
 
     @PositiveOrZero
     private int amount;

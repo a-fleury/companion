@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/rtransactions")
+@RequestMapping("/r-transactions")
 @RequiredArgsConstructor
-class RTransactionController {
+public class RTransactionController {
 
     private final StripeService stripeService;
     private final RTransactionService rTransactionService;
@@ -29,13 +29,13 @@ class RTransactionController {
 
     @GetMapping("/:id")
     public ResponseEntity<RTransaction> getTransactionById(@Param("id") UUID id) {
-        RTransaction transaction = rTransactionService.getRTransactionById(id);
+        RTransaction transaction = rTransactionService.getById(id);
         return ResponseEntity.ok(transaction);
     }
 
     @GetMapping("/user/:userId")
-    public ResponseEntity<List<RTransaction>> getAllTransactionsByUserId(@Param("userId") UUID userId) {
-        List<RTransaction> transaction = rTransactionService.getAllTransactionsByUserId(userId);
+    public ResponseEntity<List<RTransaction>> getAllTransactionsByUserId(@Param("userId") Long userId) {
+        List<RTransaction> transaction = rTransactionService.getAllByUserId(userId);
         return ResponseEntity.ok(transaction);
     }
 

@@ -45,6 +45,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Ajout de l'agent Mockito pour éviter les warnings
+	testImplementation 'org.mockito:mockito-inline:5.2.0'
 }
 
 dependencyManagement {
@@ -56,4 +59,28 @@ dependencyManagement {
 
 tasks.named('test') {
 	useJUnitPlatform()
+
+	// JVM options to remove Mockito warnings
+	jvmArgs '-XX:+EnableDynamicAgentLoading', '-Xshare:off'
+
+	// Show detailed test logging
+	testLogging {
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+		exceptionFormat = "full"
+		showExceptions = true
+		showCauses = true
+		showStackTraces = true
+		showStandardStreams = false
+
+		// Summary after suite completion
+		afterSuite { desc, result ->
+			if (!desc.parent) {
+				println "\nTest result: ${result.resultType}"
+				println "Test summary: ${result.testCount} tests, " +
+						"${result.successfulTestCount} succeeded, " +
+						"${result.failedTestCount} failed, " +
+						"${result.skippedTestCount} skipped"
+			}
+		}
+	}
 }

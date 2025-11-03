@@ -1,6 +1,8 @@
 package com.companion.transactions.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
@@ -16,10 +18,16 @@ public class VTransaction {
     private UUID id;
 
     @NotNull
-    private UUID buyerId;
+    private Long buyerId;
 
     @NotNull
-    private UUID sellerId;
+    private Long sellerId;
+
+    @NotNull
+    private Long meetingId;
+
+    @Nullable
+    private UUID ratingId;
 
     @PositiveOrZero
     private int amount;
@@ -48,6 +56,27 @@ public class VTransaction {
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
+    }
+
+
+    @AssertTrue(message = "Meeting ID is required for PURCHASE transactions" +
+            " and Rating ID is also required for TIP transactions")
+    @SuppressWarnings("unused")
+    private boolean isTransactionIdsValid() {
+        if (type == VTransactionType.PURCHASE) {
+            return isValidPurchase();
+        } else if (type == VTransactionType.TIP) {
+            return isValidTip();
+        }
+        return true;
+    }
+
+    private boolean isValidPurchase() {
+        return meetingId != null && ratingId == null;
+    }
+
+    private boolean isValidTip() {
+        return meetingId != null && ratingId != null;
     }
 }
 

@@ -41,7 +41,7 @@ public class StripeService {
 
     public void simulateWithdrawal(RTransactionCreateDTO dto) {
         // Create a DB record of transaction
-        WithdrawalRate correctRate = withdrawalRateService.getWithdrawalRateByAmount(dto.getAmountV());
+        WithdrawalRate correctRate = withdrawalRateService.getByAmount(dto.getAmountV());
         UUID providedRateId = dto.getWithdrawalRateId()
                 .orElseThrow(() -> new IllegalArgumentException("Withdrawal rate ID is required"));
 
@@ -51,7 +51,7 @@ public class StripeService {
 
         RTransaction transaction = rTransactionService.createWithdrawal(dto);
 
-        rTransactionService.updateRTransactionStatus(transaction.getId(), RTransactionStatus.SUCCESS);
+        rTransactionService.updateStatus(transaction.getId(), RTransactionStatus.SUCCESS);
         walletService.updateBalance(transaction.getUserId(), -transaction.getAmountV());
 
     }

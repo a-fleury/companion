@@ -1,6 +1,8 @@
 package com.companion.transactions.repository;
 
 import com.companion.transactions.model.VTransaction;
+import com.companion.transactions.model.VTransactionStatus;
+import com.companion.transactions.model.VTransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,11 +12,17 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public interface VTransactionRepository extends JpaRepository<VTransaction, UUID> {
 
-    List<VTransaction> findByBuyerId(UUID buyerId);
+    List<VTransaction> findByBuyerId(Long buyerId);
 
-    boolean existsByBuyerId(UUID userId);
+    boolean existsByBuyerId(Long userId);
 
-    List<VTransaction> findBySellerId(UUID sellerId);
+    List<VTransaction> findBySellerId(Long sellerId);
 
-    boolean existsBySellerId(UUID userId);
+    boolean existsBySellerId(Long userId);
+
+    List<VTransaction> findAllByMeetingId(Long meetingId);
+
+    List<VTransaction> findAllBySellerIdAndBuyerId(Long sellerId, Long buyerId);
+
+    Optional<VTransaction> findByMeetingIdAndSellerIdAndBuyerIdAndTypeAndStatus(Long meetingId, Long sellerId, Long buyerId, VTransactionType vTransactionType, VTransactionStatus vTransactionStatus);
 }

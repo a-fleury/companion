@@ -11,5 +11,5 @@ public interface RTransactionRepository extends JpaRepository<RTransaction, UUID
     List<RTransaction> findAllByShopOffer_Id(UUID shopOfferId);
     List<RTransaction> findAllByWithdrawalRate_Id(UUID withdrawalRateId);
     List<RTransaction> findAllByShopOffer_ActiveTrue();
-    List<RTransaction> findAllByUserId(UUID userId);
+    List<RTransaction> findAllByUserId(Long userId);
 }

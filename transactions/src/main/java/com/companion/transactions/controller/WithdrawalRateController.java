@@ -21,43 +21,49 @@ public class WithdrawalRateController {
 
     @GetMapping("/")
     public ResponseEntity<List<WithdrawalRate>> getAllWithdrawalRates() {
-        List<WithdrawalRate> rates = withdrawalRateService.getAllWithdrawalRates();
+        List<WithdrawalRate> rates = withdrawalRateService.getAll();
         return ResponseEntity.ok(rates);
     }
 
     @GetMapping("/active")
     public ResponseEntity<List<WithdrawalRate>> getAllActiveWithdrawalRates() {
-        List<WithdrawalRate> rates = withdrawalRateService.getAllActiveWithdrawalRates();
+        List<WithdrawalRate> rates = withdrawalRateService.getAllActive();
         return ResponseEntity.ok(rates);
     }
 
     @GetMapping("/inactive")
     public ResponseEntity<List<WithdrawalRate>> getAllInactiveWithdrawalRates() {
-        List<WithdrawalRate> rates = withdrawalRateService.getAllInactiveWithdrawalRates();
+        List<WithdrawalRate> rates = withdrawalRateService.getAllInactive();
         return ResponseEntity.ok(rates);
     }
 
     @GetMapping("/:id")
     public ResponseEntity<WithdrawalRate> getWithdrawalRateById(@Param("id") UUID id) {
-        WithdrawalRate rate = withdrawalRateService.getWithdrawalRateById(id);
+        WithdrawalRate rate = withdrawalRateService.getById(id);
         return ResponseEntity.ok(rate);
     }
 
     @PostMapping("/")
     public ResponseEntity<WithdrawalRate> createWithdrawalRate(@RequestBody WithdrawalRateCreateDTO dto) {
-        WithdrawalRate rate = withdrawalRateService.createWithdrawalRate(dto);
+        WithdrawalRate rate = withdrawalRateService.create(dto);
         return ResponseEntity.ok(rate);
     }
 
     @PatchMapping("/")
     public ResponseEntity<String> updateWithdrawalRate(@RequestBody WithdrawalRateUpdateDTO dto) {
-        withdrawalRateService.updateWithdrawalRate(dto);
+        withdrawalRateService.update(dto);
         return ResponseEntity.ok("Withdrawal rate updated");
+    }
+
+    @PatchMapping("/change-status/:id")
+    public ResponseEntity<String> updateWithdrawalRateActive(@Param("id") UUID id) {
+        withdrawalRateService.changeStatus(id);
+        return ResponseEntity.ok("Withdrawal rate status updated");
     }
 
     @DeleteMapping("/:id")
     public ResponseEntity<String> deleteWithdrawalRate(@Param("id") UUID id) {
-        withdrawalRateService.deleteWithdrawalRate(id);
+        withdrawalRateService.delete(id);
         return ResponseEntity.ok("Withdrawal rate deleted");
     }
 

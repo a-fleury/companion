@@ -16,59 +16,55 @@ import java.util.UUID;
 public class WithdrawalRateService {
     private final WithdrawalRateRepository withdrawalRateRepository;
 
-    public WithdrawalRate createWithdrawalRate(WithdrawalRateCreateDTO dto) {
+    public WithdrawalRate create(WithdrawalRateCreateDTO dto) {
         return withdrawalRateRepository.save(WithdrawalRate.builder()
                 .minAmountV(dto.getMinAmountV())
                 .rate(dto.getRate())
                 .description(dto.getDescription())
-                .bonus(dto.getBonus())
                 .active(dto.isActive())
-                .discount(dto.getDiscount())
                 .build());
     }
 
-    public WithdrawalRate getWithdrawalRateById(UUID id) {
+    public WithdrawalRate getById(UUID id) {
         return withdrawalRateRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("WithdrawalRate not found: " + id));
     }
 
-    public WithdrawalRate getWithdrawalRateByAmount(int amount) {
+    public WithdrawalRate getByAmount(int amount) {
         return findApplicableRate(amount);
     }
 
-    public List<WithdrawalRate> getAllWithdrawalRates() {
+    public List<WithdrawalRate> getAll() {
         return withdrawalRateRepository.findAll();
     }
 
-    public List<WithdrawalRate> getAllActiveWithdrawalRates() {
+    public List<WithdrawalRate> getAllActive() {
         return withdrawalRateRepository.findAllByActiveTrue();
     }
 
-    public List<WithdrawalRate> getAllInactiveWithdrawalRates() {
+    public List<WithdrawalRate> getAllInactive() {
         return withdrawalRateRepository.findAllByActiveFalse();
     }
 
-    public void updateWithdrawalRate(WithdrawalRateUpdateDTO dto) {
+    public void update(WithdrawalRateUpdateDTO dto) {
         UUID id = dto.getId();
         WithdrawalRate rate = withdrawalRateRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("WithdrawalRate not found: " + id));
         rate.setMinAmountV(dto.getMinAmountV());
         rate.setRate(dto.getRate());
         rate.setDescription(dto.getDescription());
-        rate.setBonus(dto.getBonus());
         rate.setActive(dto.isActive());
-        rate.setDiscount(dto.getDiscount());
         withdrawalRateRepository.save(rate);
     }
 
-    public void changeWithdrawalRateStatus(UUID id) {
+    public void changeStatus(UUID id) {
         WithdrawalRate rate = withdrawalRateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("WithdrawalRate not found: " + id));
         rate.setActive(!rate.isActive());
         withdrawalRateRepository.save(rate);
     }
 
-    public void deleteWithdrawalRate(UUID id) {
+    public void delete(UUID id) {
         WithdrawalRate rate = withdrawalRateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("WithdrawalRate not found: " + id));
         rate.setActive(false);

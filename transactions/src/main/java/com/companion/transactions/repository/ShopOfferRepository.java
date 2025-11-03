@@ -9,5 +9,4 @@ import java.util.UUID;
 @SuppressWarnings("unused")
 public interface ShopOfferRepository extends JpaRepository<ShopOffer, UUID> {
     List<ShopOffer> findAllByActiveTrue();
-    List<ShopOffer> findAllByActiveFalse();
 }

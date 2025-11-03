@@ -18,10 +18,11 @@ public class Wallet {
 
     @NotNull
     @Column(unique = true)
-    private UUID userId;
+    private Long userId;
 
     @NotNull
     @PositiveOrZero
+    @Builder.Default
     private int balance = 0;
 
     @NotNull

@@ -24,17 +24,17 @@ public class RTransactionService {
         return transactionRepository.findAll();
     }
 
-    public List<RTransaction> getAllTransactionsByUserId(UUID userId) {
+    public List<RTransaction> getAllByUserId(Long userId) {
         return transactionRepository.findAllByUserId(userId);
     }
     
-    public RTransaction getRTransactionById(UUID transactionId) {
+    public RTransaction getById(UUID transactionId) {
         return transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction not found: " + transactionId));
     }
 
-    public void updateRTransactionStatus(UUID transactionId, RTransactionStatus status) {
-        RTransaction transaction = getRTransactionById(transactionId);
+    public void updateStatus(UUID transactionId, RTransactionStatus status) {
+        RTransaction transaction = getById(transactionId);
         transaction.setStatus(status);
         transactionRepository.save(transaction);
     }

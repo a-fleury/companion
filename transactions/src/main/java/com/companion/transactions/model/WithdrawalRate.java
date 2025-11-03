@@ -26,12 +26,6 @@ public class WithdrawalRate {
     @Nullable
     private String description;
 
-    @PositiveOrZero
-    private int discount;
-
-    @PositiveOrZero
-    private int bonus;
-
     private boolean active;
 
     @NotNull
