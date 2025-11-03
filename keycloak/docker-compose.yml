@@ -22,8 +22,8 @@ services:
     depends_on:
       - keycloak-db
     environment:
-      KC_BOOTSTRAP_ADMIN: ${KEYCLOAK_ADMIN}
-      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
       KC_DB_URL: jdbc:postgresql://keycloak-db:${POSTGRES_PORT}/${CURRENT_DB}
       KC_DB: postgres
