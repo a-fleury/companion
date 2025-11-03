@@ -22,7 +22,7 @@ public class VTransactionCreateDTO {
     @NotNull Long meetingId;
 
     @PositiveOrZero
-    private int amount;
+    private Integer amount;
 
     @NotNull
     private VTransactionType type;

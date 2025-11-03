@@ -21,7 +21,7 @@ public class WithdrawalRateService {
                 .minAmountV(dto.getMinAmountV())
                 .rate(dto.getRate())
                 .description(dto.getDescription())
-                .active(dto.isActive())
+                .active(dto.getActive())
                 .build());
     }
 
@@ -53,14 +53,14 @@ public class WithdrawalRateService {
         rate.setMinAmountV(dto.getMinAmountV());
         rate.setRate(dto.getRate());
         rate.setDescription(dto.getDescription());
-        rate.setActive(dto.isActive());
+        rate.setActive(dto.getActive());
         withdrawalRateRepository.save(rate);
     }
 
     public void changeStatus(UUID id) {
         WithdrawalRate rate = withdrawalRateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("WithdrawalRate not found: " + id));
-        rate.setActive(!rate.isActive());
+        rate.setActive(!rate.getActive());
         withdrawalRateRepository.save(rate);
     }
 

@@ -57,7 +57,7 @@ transactions/
 ## 🌐 Exposed Endpoints
 
 ### Wallets
-- `GET /wallets/me` - Get current user's wallet (requires `X-User-Id` header)
+- `GET /wallets/logged-user` - Get current user's wallet (requires `X-User-Id` header)
 - `GET /wallets/all` - Get all wallets
 
 ### Virtual Transactions (In-app currency)

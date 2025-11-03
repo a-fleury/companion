@@ -9,8 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WithdrawalRateCreateDTO {
+
+    @NotNull
     @PositiveOrZero
-    private int minAmountV;
+    private Integer minAmountV;
 
     @NotNull
     @PositiveOrZero
@@ -20,5 +22,6 @@ public class WithdrawalRateCreateDTO {
     @Nullable
     private String description;
 
-    private boolean active;
+    @NotNull
+    private Boolean active;
 }

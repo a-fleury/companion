@@ -35,7 +35,7 @@ public class ShopOfferService {
                 .description(dto.getDescription())
                 .price(dto.getPrice())
                 .amountV(dto.getAmountV())
-                .active(dto.isActive())
+                .active(dto.getActive())
                 .bonus(dto.getBonus())
                 .discount(dto.getDiscount())
                 .build();
@@ -49,7 +49,7 @@ public class ShopOfferService {
         shopOffer.setDescription(dto.getDescription());
         shopOffer.setPrice(dto.getPrice());
         shopOffer.setAmountV(dto.getAmountV());
-        shopOffer.setActive(dto.isActive());
+        shopOffer.setActive(dto.getActive());
         shopOffer.setBonus(dto.getBonus());
         shopOffer.setDiscount(dto.getDiscount());
 
@@ -58,7 +58,7 @@ public class ShopOfferService {
 
     public void changeStatus(UUID id) {
         ShopOffer shopOffer = getById(id);
-        shopOffer.setActive(!shopOffer.isActive());
+        shopOffer.setActive(!shopOffer.getActive());
         shopOfferRepository.save(shopOffer);
     }
 

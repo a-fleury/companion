@@ -14,8 +14,9 @@ public class WithdrawalRateUpdateDTO {
     @NotNull
     private UUID id;
 
+    @NotNull
     @PositiveOrZero
-    private int minAmountV;
+    private Integer minAmountV;
 
     @NotNull
     @PositiveOrZero
@@ -25,6 +26,7 @@ public class WithdrawalRateUpdateDTO {
     @Nullable
     private String description;
 
-    private boolean active;
+    @NotNull
+    private Boolean active;
 }
 

@@ -74,8 +74,8 @@ class WithdrawalRateRepositoryTest {
         List<WithdrawalRate> rates = repo.findAllByActiveTrue();
         assertEquals(2, rates.size());
         assertAll(
-                () -> assertTrue(rates.getFirst().isActive()),
-                () -> assertTrue(rates.get(1).isActive())
+                () -> assertTrue(rates.getFirst().getActive()),
+                () -> assertTrue(rates.get(1).getActive())
         );
     }
 
@@ -83,7 +83,7 @@ class WithdrawalRateRepositoryTest {
     public void shouldFindAllInactiveWithdrawalRates() {
         List<WithdrawalRate> rates = repo.findAllByActiveFalse();
         assertEquals(1, rates.size());
-        assertFalse(rates.getFirst().isActive());
+        assertFalse(rates.getFirst().getActive());
     }
 
     @Test
@@ -93,7 +93,7 @@ class WithdrawalRateRepositoryTest {
         rate.setActive(false);
         repo.save(rate);
         WithdrawalRate updatedRate = repo.findById(id).orElseThrow();
-        assertFalse(updatedRate.isActive());
+        assertFalse(updatedRate.getActive());
     }
 
     @Test

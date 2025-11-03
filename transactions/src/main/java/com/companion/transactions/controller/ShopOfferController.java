@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/shop-offers")
@@ -32,7 +33,7 @@ public class ShopOfferController {
     }
 
     @GetMapping("/:id")
-    public ResponseEntity<ShopOffer> getShopOfferById(java.util.UUID id) {
+    public ResponseEntity<ShopOffer> getShopOfferById(UUID id) {
         ShopOffer shopOffer = shopOfferService.getById(id);
         return ResponseEntity.ok(shopOffer);
     }
@@ -50,13 +51,13 @@ public class ShopOfferController {
     }
 
     @PatchMapping("/change-status/:id")
-    public ResponseEntity<String> updateShopOfferActive(@Param("id") java.util.UUID id) {
+    public ResponseEntity<String> updateShopOfferActive(@Param("id") UUID id) {
         shopOfferService.changeStatus(id);
         return ResponseEntity.ok("Shop offer status updated");
     }
 
     @DeleteMapping("/:id")
-    public ResponseEntity<String> deleteShopOffer(@Param("id") java.util.UUID id) {
+    public ResponseEntity<String> deleteShopOffer(@Param("id") UUID id) {
         shopOfferService.delete(id);
         return ResponseEntity.ok("Shop offer deleted");
     }

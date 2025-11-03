@@ -26,7 +26,7 @@ public class RTransaction {
 
     @NotNull
     @PositiveOrZero
-    private int amountV;
+    private Integer amountV;
 
     @Enumerated(EnumType.STRING)
     @NotNull

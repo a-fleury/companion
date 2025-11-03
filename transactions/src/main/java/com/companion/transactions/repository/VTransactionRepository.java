@@ -9,18 +9,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@SuppressWarnings("unused")
+
 public interface VTransactionRepository extends JpaRepository<VTransaction, UUID> {
 
     List<VTransaction> findByBuyerId(Long buyerId);
 
-    boolean existsByBuyerId(Long userId);
-
     List<VTransaction> findBySellerId(Long sellerId);
-
-    boolean existsBySellerId(Long userId);
-
-    List<VTransaction> findAllByMeetingId(Long meetingId);
 
     List<VTransaction> findAllBySellerIdAndBuyerId(Long sellerId, Long buyerId);
 

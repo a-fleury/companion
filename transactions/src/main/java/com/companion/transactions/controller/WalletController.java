@@ -14,7 +14,7 @@ public class WalletController {
 
     private final WalletService walletService;
 
-    @GetMapping("/me")
+    @GetMapping("/logged-user")
     public ResponseEntity<Wallet> getMyWallet(@RequestHeader("X-User-Id") Long userId) {
         Wallet wallet = walletService.getWalletByUserId(userId);
         return ResponseEntity.ok(wallet);

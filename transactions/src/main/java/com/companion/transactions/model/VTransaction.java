@@ -29,8 +29,9 @@ public class VTransaction {
     @Nullable
     private UUID ratingId;
 
+    @NotNull
     @PositiveOrZero
-    private int amount;
+    private Integer amount;
 
     @Enumerated(EnumType.STRING)
     @NotNull

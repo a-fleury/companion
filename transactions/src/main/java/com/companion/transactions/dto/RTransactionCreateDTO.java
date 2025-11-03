@@ -22,8 +22,7 @@ public class RTransactionCreateDTO {
 
     @NotNull
     @PositiveOrZero
-    private int amountV;
-
+    private Integer amountV;
 
     @Nullable
     private UUID withdrawalRateId;

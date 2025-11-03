@@ -18,11 +18,14 @@ public class ShopOfferCreateDTO {
     @NotNull
     private String description;
 
+    @NotNull
     @PositiveOrZero
-    private int discount;
+    private Integer discount;
 
+    @NotNull
     @PositiveOrZero
-    private int bonus;
+    private Integer bonus;
 
-    private boolean active;
+    @NotNull
+    private Boolean active;
 }

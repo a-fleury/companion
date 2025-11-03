@@ -15,8 +15,9 @@ public class WithdrawalRate {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotNull
     @PositiveOrZero
-    private int minAmountV;
+    private Integer minAmountV;
 
     @NotNull
     @PositiveOrZero
@@ -26,7 +27,8 @@ public class WithdrawalRate {
     @Nullable
     private String description;
 
-    private boolean active;
+    @NotNull
+    private Boolean active;
 
     @NotNull
     private LocalDateTime createdAt;

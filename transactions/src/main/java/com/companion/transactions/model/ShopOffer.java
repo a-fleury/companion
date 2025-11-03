@@ -21,18 +21,21 @@ public class ShopOffer {
 
     @NotNull
     @PositiveOrZero
-    private int amountV;
+    private Integer amountV;
 
     @NotNull
     private String description;
 
+    @NotNull
     @PositiveOrZero
-    private int discount;
+    private Integer discount;
 
+    @NotNull
     @PositiveOrZero
-    private int bonus;
+    private Integer bonus;
 
-    private boolean active;
+    @NotNull
+    private Boolean active;
 
     @NotNull
     private LocalDateTime createdAt;

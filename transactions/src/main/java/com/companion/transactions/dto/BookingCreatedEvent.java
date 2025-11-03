@@ -18,6 +18,7 @@ public class BookingCreatedEvent {
     @NotNull
     Long sellerId;
 
+    @NotNull
     @PositiveOrZero
-    int amount;
+    Integer amount;
 }
