@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+  kafka:
+    bootstrap-servers: localhost:9092
+    properties:
+      enable.idempotence: true
+      acks: all
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+meetings:
+  topics:
+    created: meetings.created
+    statusChanged: meetings.status-changed
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5433/meetings
+    username: meetings_user
+    password: meetings_pass
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
