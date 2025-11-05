@@ -24,7 +24,19 @@ public class MeetingEventPublisher {
         kafka.send(createdTopic, String.valueOf(evt.meetingId()), evt);
     }
 
-    public void publishStatusChanged(MeetingChangedEvent evt) {
+    public void publishStatusAcceptedChanged(MeetingChangedEvent evt) {
         kafka.send(statusChangedTopic, String.valueOf(evt.meetingId()), evt);
     }
+
+    public void publishStatusPendingChanged(MeetingChangedEvent evt) {
+        kafka.send(statusChangedTopic, String.valueOf(evt.meetingId()), evt);
+    }
+
+    public void publishStatusDeclinedChanged(MeetingChangedEvent evt) {
+        kafka.send(statusChangedTopic, String.valueOf(evt.meetingId()), evt);
+    }
+    public void publishStatusFinishedChanged(MeetingChangedEvent evt) {
+        kafka.send(statusChangedTopic, String.valueOf(evt.meetingId()), evt);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.companion.meetings.dto.meeting.MeetingPatchRequest;
 import com.companion.meetings.model.Meeting;
 import com.companion.meetings.events.meeting.MeetingEventPublisher;
 import com.companion.meetings.events.meeting.MeetingChangedEvent;
+import com.companion.meetings.model.MeetingStatus;
 import com.companion.meetings.repository.MeetingRepository;
 import com.companion.meetings.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -56,20 +57,62 @@ public class MeetingService {
         }
 
 
-        // 🔹 3. Hibernate détecte un objet déjà existant (id != null) → exécute un UPDATE
         Meeting updatedMeeting = meetingRepository.save(meeting);
 
         if (patchMeeting.getStatus() != null && oldStatus != patchMeeting.getStatus()) {
-            var evt = new MeetingChangedEvent(
-                    java.util.UUID.randomUUID().toString(),
-                    updatedMeeting.getId(),
-                    updatedMeeting.getHostUserId(),
-                    updatedMeeting.getClientUserId(),
-                    updatedMeeting.getDuration(),
-                    updatedMeeting.getPrice(),
-                    updatedMeeting.getStatus()
-            );
-            eventPublisher.publishStatusChanged(evt);
+            if(oldStatus == MeetingStatus.ACCEPTED) {
+                var evt = new MeetingChangedEvent(
+                        java.util.UUID.randomUUID().toString(),
+                        updatedMeeting.getId(),
+                        updatedMeeting.getHostUserId(),
+                        updatedMeeting.getClientUserId(),
+                        updatedMeeting.getDuration(),
+                        updatedMeeting.getPrice(),
+                        updatedMeeting.getStatus()
+                );
+                eventPublisher.publishStatusAcceptedChanged(evt);
+            }
+            if(oldStatus == MeetingStatus.PENDING) {
+                var evt = new MeetingChangedEvent(
+                        java.util.UUID.randomUUID().toString(),
+                        updatedMeeting.getId(),
+                        updatedMeeting.getHostUserId(),
+                        updatedMeeting.getClientUserId(),
+                        updatedMeeting.getDuration(),
+                        updatedMeeting.getPrice(),
+                        updatedMeeting.getStatus()
+                );
+                eventPublisher.publishStatusPendingChanged(evt);
+            }
+
+            if(oldStatus == MeetingStatus.DECLINED) {
+                var evt = new MeetingChangedEvent(
+                        java.util.UUID.randomUUID().toString(),
+                        updatedMeeting.getId(),
+                        updatedMeeting.getHostUserId(),
+                        updatedMeeting.getClientUserId(),
+                        updatedMeeting.getDuration(),
+                        updatedMeeting.getPrice(),
+                        updatedMeeting.getStatus()
+                );
+                eventPublisher.publishStatusDeclinedChanged(evt);
+            }
+            if(oldStatus == MeetingStatus.FINISHED) {
+                var evt = new MeetingChangedEvent(
+                        java.util.UUID.randomUUID().toString(),
+                        updatedMeeting.getId(),
+                        updatedMeeting.getHostUserId(),
+                        updatedMeeting.getClientUserId(),
+                        updatedMeeting.getDuration(),
+                        updatedMeeting.getPrice(),
+                        updatedMeeting.getStatus()
+                );
+                eventPublisher.publishStatusFinishedChanged(evt);
+            }
+
+
+
+
         }
 
         // 🔹 4. Conversion en DTO pour la réponse
