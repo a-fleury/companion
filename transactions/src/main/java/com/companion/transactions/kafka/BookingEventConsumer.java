@@ -3,9 +3,11 @@ package com.companion.transactions.kafka;
 import com.companion.transactions.dto.BookingCreatedEvent;
 import com.companion.transactions.dto.BookingUpdatedEvent;
 import com.companion.transactions.dto.VTransactionCreateDTO;
+import com.companion.transactions.model.VTransaction;
 import com.companion.transactions.model.VTransactionStatus;
 import com.companion.transactions.model.VTransactionType;
 import com.companion.transactions.service.VTransactionService;
+import com.companion.transactions.service.WalletService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 public class BookingEventConsumer {
 
     private final VTransactionService vTransactionService;
+    private final WalletService walletService;
 
     @KafkaListener(topics = "booking.created", groupId = "transaction-service-group")
     public void handleBookingCreated(BookingCreatedEvent event) {
@@ -31,6 +34,7 @@ public class BookingEventConsumer {
                     .status(VTransactionStatus.PENDING)
                     .build();
             vTransactionService.createVTransaction(dto);
+            walletService.updateBalance(event.getBuyerId(), -event.getAmount());
         } catch (Exception e) {
             log.error("Error while processing transaction for encounter {}", event.getMeetingId(), e);
         }
@@ -40,7 +44,8 @@ public class BookingEventConsumer {
     public void handleBookingSuccess(BookingUpdatedEvent event) {
         log.info("Received booking.success event: {}", event);
         try {
-            vTransactionService.validateTransaction(event.getMeetingId(), event.getSellerId(), event.getBuyerId());
+            VTransaction tx = vTransactionService.validateTransaction(event.getMeetingId(), event.getSellerId(), event.getBuyerId());
+            walletService.updateBalance(tx.getSellerId(), tx.getAmount());
         } catch (Exception e) {
             log.error("Error while processing transaction for encounter {}", event.getMeetingId(), e);
         }
@@ -50,7 +55,8 @@ public class BookingEventConsumer {
     public void handleBookingCanceled(BookingUpdatedEvent event) {
         log.info("Received meeting.canceled event: {}", event);
         try {
-            vTransactionService.cancelTransaction(event.getMeetingId(), event.getSellerId(), event.getBuyerId());
+            VTransaction tx = vTransactionService.cancelTransaction(event.getMeetingId(), event.getSellerId(), event.getBuyerId());
+            walletService.updateBalance(tx.getBuyerId(), tx.getAmount());
         } catch (Exception e) {
             log.error("Error while processing transaction for encounter {}", event.getMeetingId(), e);
         }

@@ -47,24 +47,20 @@ public class VTransactionService {
                 .type(dto.getType())
                 .status(dto.getStatus())
                 .build());
-        walletService.updateBalance(buyerId, -transaction.getAmount());
-        walletService.updateBalance(sellerId, transaction.getAmount());
     }
 
-    public void validateTransaction(Long meetingId, Long sellerId, Long buyerId) {
+    public VTransaction validateTransaction(Long meetingId, Long sellerId, Long buyerId) {
         VTransaction transaction = findByMeetingIdAndSellerIdAndBuyerIdAndTypeAndStatus(meetingId, sellerId, buyerId, VTransactionType.PURCHASE, VTransactionStatus.PENDING);
 
         transaction.setStatus(VTransactionStatus.SUCCESS);
-        vTransactionRepository.save(transaction);
+        return vTransactionRepository.save(transaction);
     }
 
-    public void cancelTransaction(Long meetingId, Long sellerId, Long buyerId) {
+    public VTransaction cancelTransaction(Long meetingId, Long sellerId, Long buyerId) {
         VTransaction transaction = findByMeetingIdAndSellerIdAndBuyerIdAndTypeAndStatus(meetingId, sellerId, buyerId, VTransactionType.PURCHASE, VTransactionStatus.PENDING);
 
         transaction.setStatus(VTransactionStatus.CANCELED);
-        vTransactionRepository.save(transaction);
-        walletService.updateBalance(buyerId, transaction.getAmount());
-        walletService.updateBalance(sellerId, -transaction.getAmount());
+        return vTransactionRepository.save(transaction);
     }
 
     private VTransaction findByMeetingIdAndSellerIdAndBuyerIdAndTypeAndStatus(Long meetingId, Long sellerId, Long buyerId, VTransactionType vTransactionType, VTransactionStatus vTransactionStatus) {
