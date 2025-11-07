@@ -1,17 +1,16 @@
 spring:
   application:
-    name: transactions-test
+    name: transactions
 
+  config:
+    import: optional:file:.env[.properties]
 
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${TEST_DB}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -23,15 +22,12 @@ spring:
     listener:
       auto-startup: false
     consumer:
-      group-id: transaction-service-test-group
+      group-id: transaction-service-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "com.companion.transactions.dto"
-
-server:
-  port: ${SERVER_PORT}
 
 stripe:
   webhookSecret: ${STRIPE_WEBHOOK_SECRET}
@@ -40,4 +36,10 @@ stripe:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
 

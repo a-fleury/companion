@@ -24,7 +24,7 @@ jobs:
         run: |
           ssh-keyscan -H "$DOKKU_HOST" >> ~/.ssh/known_hosts
           git remote add dokku dokku@$DOKKU_HOST:$DOKKU_APP || true
-          git subtree push --prefix transactions dokku main
+          git push dokku `git subtree split --prefix transactions HEAD`:refs/heads/main --force
         env:
           DOKKU_HOST: ${{ secrets.DOKKU_HOST }}
           DOKKU_APP: ${{ secrets.DOKKU_APP }}

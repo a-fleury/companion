@@ -29,7 +29,7 @@ WORKDIR /app
 # Copy the jar from builder stage
 COPY --from=builder /app/build/libs/*.jar app.jar
 
-EXPOSE 8085
-ENV SERVER_PORT=8085
+EXPOSE 8080
+ENV SERVER_PORT=${PORT:-8080}
 
 ENTRYPOINT ["java","-jar","app.jar"]

@@ -123,9 +123,6 @@ TEST_DB=companion_transactions_db_test
 POSTGRES_USER=user
 POSTGRES_PASSWORD=pwd
 
-# Application
-SERVER_PORT=8085
-
 # Stripe
 STRIPE_WEBHOOK_SECRET=whsec_xxxxx
 STRIPE_API_KEY=sk_test_xxxxx
@@ -182,7 +179,7 @@ The service uses a **multi-container setup** with:
 Access interactive API documentation at:
 
 ```
-http://localhost:8085/swagger-ui.html
+http://localhost:8080/swagger-ui.html
 ```
 
 > **Tip:** The Swagger UI provides full endpoint documentation with request/response examples.
@@ -235,7 +232,7 @@ SELECT * FROM wallet;
 
 ### Service won't start
 - Check `.env` file exists and contains valid values
-- Ensure ports 8085 and 5432 are not in use
+- Ensure ports 8080 and 5432 are not in use
 - Verify Docker daemon is running
 
 ### Database connection errors
@@ -250,7 +247,7 @@ SELECT * FROM wallet;
 
 ### Stripe webhooks are not working
 - Verify `STRIPE_WEBHOOK_SECRET` matches your Stripe dashboard
-- Use Stripe CLI for local testing: `stripe listen --forward-to localhost:8085/api/stripe/webhook`
+- Use Stripe CLI for local testing: `stripe listen --forward-to localhost:8080/api/stripe/webhook`
 
 ## 📝 Key Features
 
@@ -273,6 +270,6 @@ SELECT * FROM wallet;
 ---
 
 **Version:** 0.0.1-SNAPSHOT  
-**Port:** 8085  
+**Port:** 8080
 **Team:** Companion
 
