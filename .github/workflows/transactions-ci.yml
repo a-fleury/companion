@@ -36,9 +36,11 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test
+        working-directory: ./transactions
         run: ./gradlew clean build --no-daemon
 
       - name: Build Docker image
+        working-directory: ./transactions
         run: docker build -t companion/transactions-service .
 
       #- name: Run docker-compose for integration test
