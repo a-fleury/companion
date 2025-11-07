@@ -30,9 +30,6 @@ spring:
       properties:
         spring.json.trusted.packages: "com.companion.transactions.dto"
 
-server:
-  port: ${SERVER_PORT}
-
 stripe:
   webhookSecret: ${STRIPE_WEBHOOK_SECRET}
   apiKey: ${STRIPE_API_KEY}
