@@ -3,8 +3,12 @@ name: 🚀 Deploy Transactions Service to Dokku
 on:
   push:
     branches:
-      - features/transactions
-      # - main
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
 
 jobs:
   deploy:
