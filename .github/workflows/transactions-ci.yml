@@ -52,4 +52,4 @@ jobs:
 
       - name: Run docker-compose for integration test
         working-directory: ./transactions
-        run: docker compose up --env-file .env -d
+        run: docker compose up -d
