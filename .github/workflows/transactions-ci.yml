@@ -49,7 +49,3 @@ jobs:
       - name: Build Docker image
         working-directory: ./transactions
         run: docker build -t companion/transactions-service .
-
-      - name: Run docker-compose for integration test
-        working-directory: ./transactions
-        run: docker compose up -d
