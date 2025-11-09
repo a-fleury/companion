@@ -1,5 +1,7 @@
 package com.companion.notification.notifier.contract;
 
+import com.companion.notification.notifier.domain.Notification;
+
 public interface Notifier {
-    void sendNotification(String message);
+    void sendNotification(Notification message);
 }
