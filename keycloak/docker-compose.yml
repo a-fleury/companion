@@ -22,6 +22,7 @@ services:
     depends_on:
       - keycloak-db
     environment:
+      KEYCLOAK_MODE: ${KEYCLOAK_MODE:-dev}
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
 
@@ -30,8 +31,8 @@ services:
       KC_DB_USERNAME: ${POSTGRES_USER}
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
-      KC_IMPORT: /opt/keycloak/data/import/realm-export.json
-      KC_IMPORT_STRATEGY: OVERWRITE_EXISTING
+      KC_IMPORT: ${KC_IMPORT}
+      KC_IMPORT_STRATEGY: ${KC_IMPORT_STRATEGY}
 
       #Prod only
       #KC_HOSTNAME: ${KC_HOSTNAME}
