@@ -1,0 +1,18 @@
+services:
+  github-runner:
+    build:
+      context: .
+      args:
+        RUNNER_VERSION: ${RUNNER_VERSION}   # optional override
+    container_name: github-runner
+    restart: unless-stopped
+
+    environment:
+      REPO_URL: https://github.com/a-fleury/companion
+      RUNNER_NAME: dokku-runner
+      RUNNER_WORKDIR: /runner/_work
+      RUNNER_TOKEN: ${RUNNER_TOKEN}
+      RUNNER_ALLOW_RUNASROOT: "1" # only allow in a container like Docker
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

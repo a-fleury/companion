@@ -16,7 +16,9 @@ spring:
       ddl-auto: update
     show-sql: false
     properties:
-      javax.persistence.validation.mode: callback
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+      jakarta.persistence.validation.mode: callback
 
   kafka:
     bootstrap-servers: localhost:9092
@@ -30,9 +32,6 @@ spring:
       properties:
         spring.json.trusted.packages: "com.companion.transactions.dto"
 
-server:
-  port: ${SERVER_PORT}
-
 stripe:
   webhookSecret: ${STRIPE_WEBHOOK_SECRET}
   apiKey: ${STRIPE_API_KEY}
@@ -40,4 +39,11 @@ stripe:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+
 
