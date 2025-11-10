@@ -1,4 +1,33 @@
-# Keycloak Setup
+# Keycloak Identity Management Service
+
+## 🎯 Overview
+
+**Keycloak** serves as the identity and access management solution for the Companion application, providing centralized authentication and authorization services for all microservices.
+
+### Key Features
+- **Keycloak 26.4.0** configured as SSO provider with OpenID Connect/OAuth 2.0
+- Pre-configured **`companion` realm** with application-specific settings
+- Automatic realm import on first startup
+- Support for user management, roles, permissions, and federation
+- Communication with Frontend and API Gateway
+- Dual-mode operation (Development & Production)
+
+## 📁 Project Structure
+
+```
+keycloak/
+├── Dockerfile                  # Multi-mode container image
+├── docker-compose.yml          # Local orchestration
+├── init-db.sh                  # Database initialization script
+├── Makefile                    # Development commands
+├── README.md                   # Service documentation
+├── .env.dev.example            # Development configuration template
+├── .env.prod.example           # Production configuration template
+├── .gitignore                  # Exclude sensitive & runtime data
+└── keycloak-data/
+    └── import/
+        └── realm-export.json   # Companion realm configuration
+```
 
 ## Development vs Production Mode
 
@@ -35,20 +64,30 @@ The `KEYCLOAK_MODE` variable accepts:
 
 ## Realm Configuration
 
-The setup automatically imports the `companion` realm on startup using the configuration file located at:
+The setup automatically imports the **`companion` realm** on first startup using the configuration file located at:
 ```
 keycloak-data/import/realm-export.json
 ```
 
-This file contains pre-configured:
+### What's Included
+This pre-configured realm contains:
 - Realm settings and security policies
-- Client applications
-- Roles and permissions
+- Client applications configured for the Companion ecosystem
+- Roles and permissions structure
 - User federation settings
+- OpenID Connect/OAuth 2.0 configurations
 
+### Import Configuration
 The import is controlled by environment variables:
-- `KC_IMPORT`: Path to the realm file
-- `KC_IMPORT_STRATEGY`: Import strategy (e.g., `OVERWRITE_EXISTING`, `IGNORE_EXISTING`)
+- `IMPORT_FILE_PATH`: Path to the realm file (default: `/opt/keycloak/data/import/realm-export.json`)
+- `OVERWRITE_EXISTING_REALM`: Whether to overwrite existing realm data (default: `false`)
+
+### Updating Realm Configuration
+To export the current realm configuration:
+1. Access the Admin Console
+2. Select the `companion` realm
+3. Go to **Realm Settings** → **Action** → **Partial Export**
+4. Export to `keycloak-data/import/realm-export.json`
 
 ## Important Endpoints
 
