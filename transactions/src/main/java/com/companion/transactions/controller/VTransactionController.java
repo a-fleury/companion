@@ -35,7 +35,7 @@ public class VTransactionController {
         return ResponseEntity.ok(transaction);
     }
 
-    @GetMapping("/buyer/:sellerId")
+    @GetMapping("/seller/:sellerId")
     public ResponseEntity<List<VTransaction>> getAllBySellerId(@Param("userId") Long sellerId) {
         List<VTransaction> transaction = vTransactionService.getAllBySellerId(sellerId);
         return ResponseEntity.ok(transaction);
