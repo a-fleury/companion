@@ -2,10 +2,8 @@ FROM quay.io/keycloak/keycloak:26.4.0
 
 USER root
 
-# Optional: copy themes and providers if they exist
-COPY ./keycloak-data/themes /opt/keycloak/themes
-COPY ./keycloak-data/providers /opt/keycloak/providers
-COPY ./keycloak-data/import /opt/keycloak/data/import
+# Optional: copy themes, providers and imports if they exist
+COPY ./keycloak-data /opt/keycloak/data
 
 # Adjust permissions to let keycloak read/write its files
 RUN chown -R keycloak:keycloak /opt/keycloak
