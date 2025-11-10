@@ -8,13 +8,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "notification")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class InAppNotificationEntity {
 
     @Id
@@ -33,10 +39,18 @@ public class InAppNotificationEntity {
     @Column(name = "image_url", length = 2048)
     private String imageUrl;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private ZonedDateTime createdAt;
 
+    @jakarta.persistence.PrePersist
+    private void prePersist() {
+        if (this.createdAt == null) {
+            this.createdAt = ZonedDateTime.now();
+        }
+    }
+
     @Column(name = "is_read", nullable = false)
+    @Builder.Default
     private Boolean isRead = false;
 
 }
