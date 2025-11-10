@@ -14,7 +14,10 @@ USER keycloak
 # dev -> runs 'start-dev'
 # prod -> runs 'start'
 ENV KEYCLOAK_MODE=dev
+ENV IMPORT_FILE_PATH=/opt/keycloak/data/import/realm-export.json
+ENV OVERWRITE_EXISTING_REALM=false
 
 EXPOSE 8080
 
-ENTRYPOINT ["/bin/sh", "-c", "if [ \"$KEYCLOAK_MODE\" = \"prod\" ]; then /opt/keycloak/bin/kc.sh start; else /opt/keycloak/bin/kc.sh start-dev; fi"]
+ENTRYPOINT ["/bin/sh", "-c", "/opt/keycloak/bin/kc.sh import --file \"$IMPORT_FILE_PATH\" --override \"$OVERWRITE_EXISTING_REALM\" || true \
+ && if [ \"$KEYCLOAK_MODE\" = \"prod\" ]; then exec /opt/keycloak/bin/kc.sh start; else exec /opt/keycloak/bin/kc.sh start-dev; fi"]
