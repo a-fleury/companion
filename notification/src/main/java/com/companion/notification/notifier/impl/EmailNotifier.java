@@ -19,7 +19,6 @@ public class EmailNotifier implements Notifier {
 
     @Override
     public void sendNotification(Notification notification) {
-        // Logic to send email notification
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("app.companion.mail@gmail.com");
         message.setTo(userService.getUserEmailById(notification.userId()));

@@ -9,7 +9,7 @@ import com.companion.notification.dto.out.MessageTarget;
 @Service
 public class TargetResolverService {
 
-    public Collection<String> resolveTargets(MessageTarget target) {
+    public Collection<String> resolveTargets(MessageTarget target) throws IllegalArgumentException, UnsupportedOperationException {
         if (target == null) {
             throw new IllegalArgumentException("MessageTarget cannot be null");
         }
