@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.companion.notification.models.InAppNotificationEntity;
 import com.companion.notification.service.InAppNotificationService;
-import com.companion.notification.service.user.UserService;
 
 import lombok.RequiredArgsConstructor;
 
