@@ -22,6 +22,7 @@ public class InAppNotificationController {
 
     @GetMapping()
     public Collection<InAppNotificationEntity> getAllAvailableNotificationForCurrentUser() {
+        // TODO: Implement current user retrieval
         return inAppNotificationService.getAllNotificationsForUser("123");
     }
     
