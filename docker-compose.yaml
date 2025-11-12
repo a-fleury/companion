@@ -1,0 +1,18 @@
+services:
+  messagerie_db:
+    image: postgres
+    container_name: bg-messagerie-db
+    shm_size: 256mb
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: messagerie
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    ports:
+      - 5533:5432
+    volumes:
+      - messagerie_data:/var/lib/postgresql/data
+
+volumes:
+  messagerie_data:
