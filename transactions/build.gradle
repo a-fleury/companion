@@ -1,0 +1,86 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.6'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.companion'
+version = '0.0.1-SNAPSHOT'
+description = 'Transaction service for the app Companion'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2025.0.0")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13'
+    implementation 'com.stripe:stripe-java:30.0.0'
+    implementation 'me.paulschwarz:spring-dotenv:3.0.0'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Ajout de l'agent Mockito pour éviter les warnings
+	testImplementation 'org.mockito:mockito-inline:5.2.0'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+
+	// JVM options to remove Mockito warnings
+	jvmArgs '-XX:+EnableDynamicAgentLoading', '-Xshare:off'
+
+	// Show detailed test logging
+	testLogging {
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+		exceptionFormat = "full"
+		showExceptions = true
+		showCauses = true
+		showStackTraces = true
+		showStandardStreams = false
+
+		// Summary after suite completion
+		afterSuite { desc, result ->
+			if (!desc.parent) {
+				println "\nTest result: ${result.resultType}"
+				println "Test summary: ${result.testCount} tests, " +
+						"${result.successfulTestCount} succeeded, " +
+						"${result.failedTestCount} failed, " +
+						"${result.skippedTestCount} skipped"
+			}
+		}
+	}
+}
