@@ -1,0 +1,41 @@
+spring:
+    application:
+        name: notification
+
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: validate
+
+    datasource:
+        url: jdbc:postgresql://localhost:5534/notification
+        driver-class-name: org.postgresql.Driver
+        username: user
+        password: password
+    flyway:
+        placeholders:
+            env: dev
+        enabled: true
+        locations:
+        - classpath:db/migration
+        user: user
+        password: password
+    kafka:
+        bootstrap-servers: localhost:9092
+    mail:
+        host: smtp.gmail.com
+        port: 587
+        username: app.companion.mail@gmail.com
+        password: ${IWA_MAILBOX_PASSWORD}
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+
+logging:
+    level:
+        "org.apache.kafka": ERROR
+        "kafka": ERROR
+        "org.springframework.kafka": ERROR
